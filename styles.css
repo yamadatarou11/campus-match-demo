@@ -1971,6 +1971,10 @@ body {
   font-size: 22px;
 }
 
+#messages > .section-heading {
+  display: none;
+}
+
 .message-layout {
   grid-template-columns: 1fr;
   min-height: auto;
@@ -1993,7 +1997,8 @@ body {
 
 .chat-panel {
   margin-top: 12px;
-  min-height: min(74vh, 680px);
+  height: min(780px, calc(100svh - 132px));
+  min-height: 560px;
   overflow: hidden;
   border-radius: 0;
   background: #111;
@@ -2006,6 +2011,10 @@ body {
 
 #messages.chat-detail-open .chat-panel {
   display: grid;
+}
+
+#messages.chat-detail-open .message-layout {
+  min-height: calc(100svh - 132px);
 }
 
 .panel-kicker {
@@ -2042,7 +2051,7 @@ body {
 
 .conversation-list {
   display: grid;
-  gap: 14px;
+  gap: 2px;
   min-height: 280px;
 }
 
@@ -2107,16 +2116,29 @@ body {
 }
 
 .conversation-item {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  width: 100%;
   border: 0;
-  padding: 8px 0;
+  margin: 0;
+  padding: 10px 0;
   background: transparent;
+  text-align: left;
 }
 
 .conversation-avatar {
-  width: 72px;
-  height: 72px;
+  width: 52px;
+  height: 52px;
   overflow: hidden;
   border-radius: 50%;
+}
+
+.conversation-item > span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
 }
 
 .chat-detail-top {
@@ -2151,6 +2173,7 @@ body {
   gap: 8px;
   min-height: 0;
   padding: 14px 0 18px;
+  overflow-y: auto;
   background: #111;
   scroll-behavior: smooth;
 }
@@ -2214,6 +2237,7 @@ body {
   grid-template-columns: 1fr 64px;
   align-items: center;
   gap: 8px;
+  margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 10px;
   background: #111;
@@ -2238,14 +2262,31 @@ body {
 }
 
 .conversation-item strong {
+  overflow: hidden;
   color: #fff;
   font-size: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .conversation-item small,
 .conversation-item span span {
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.52);
   font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .chat-panel {
+    height: calc(100svh - 118px);
+    min-height: 540px;
+  }
+
+  #messages.chat-detail-open .message-layout {
+    min-height: calc(100svh - 118px);
+  }
 }
 
 .profile-setting-top {
