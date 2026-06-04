@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
     <meta name="theme-color" content="#07090f" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -228,7 +228,7 @@
             </div>
             <div class="chat-panel">
               <div class="chat-detail-top">
-                <button id="chatBackButton" class="chat-back-button" type="button">戻る</button>
+                <button id="chatBackButton" class="chat-back-button" type="button" aria-label="チャット一覧に戻る">←</button>
                 <div id="chatHeader" class="chat-header">相手を選択してください</div>
               </div>
               <div id="chatLog" class="chat-log"></div>
@@ -403,6 +403,6 @@
     <div class="swipe-preview swipe-preview-like" aria-hidden="true">♥</div>
     <div class="swipe-preview swipe-preview-bad" aria-hidden="true">×</div>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=20260605-chat-focus-layout1"></script>
+    <script src="app.js?v=20260605-keyboard-chat1"></script>
   </body>
 </html>
