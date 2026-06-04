@@ -1963,7 +1963,7 @@ body {
 }
 
 .section-heading {
-  margin: 10px 0 18px;
+  margin: 10px 0 14px;
   color: #fff;
 }
 
@@ -1974,6 +1974,7 @@ body {
 .message-layout {
   grid-template-columns: 1fr;
   min-height: auto;
+  gap: 0;
 }
 
 .conversation-list-wrap,
@@ -1991,10 +1992,10 @@ body {
 }
 
 .chat-panel {
-  margin-top: 18px;
-  min-height: 420px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.05);
+  margin-top: 12px;
+  min-height: 260px;
+  border-radius: 0;
+  background: transparent;
 }
 
 .panel-kicker {
@@ -2002,7 +2003,10 @@ body {
 }
 
 .mini-heading strong {
-  font-size: 22px;
+  color: #fff;
+  font-size: clamp(24px, 7vw, 34px);
+  font-weight: 950;
+  letter-spacing: 0;
 }
 
 .mini-heading span {
@@ -2011,10 +2015,15 @@ body {
 
 .pending-chat-list {
   display: flex;
-  gap: 14px;
+  gap: 16px;
+  width: calc(100% + 24px);
+  margin: 0 -24px 36px 0;
   overflow-x: auto;
-  padding: 2px 2px 14px;
+  overscroll-behavior-x: contain;
+  padding: 2px 24px 18px 0;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pending-chat-list::-webkit-scrollbar {
@@ -2024,30 +2033,38 @@ body {
 .conversation-list {
   display: grid;
   gap: 14px;
+  min-height: 280px;
 }
 
 .pending-match-card {
-  flex: 0 0 116px;
+  flex: 0 0 clamp(132px, 39vw, 182px);
   display: grid;
-  gap: 8px;
+  gap: 10px;
   justify-items: start;
   border: 0;
   background: transparent;
   color: #fff;
   text-align: left;
+  scroll-snap-align: start;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .pending-match-photo {
   display: grid;
   place-items: center;
-  width: 108px;
-  height: 138px;
+  width: 100%;
+  aspect-ratio: 0.72;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: 12px;
   background: #202124;
   color: #fff;
-  font-size: 34px;
+  font-size: 42px;
   font-weight: 900;
+}
+
+.pending-match-card.active .pending-match-photo {
+  outline: 4px solid #ffd23f;
+  outline-offset: -4px;
 }
 
 .pending-match-photo img,
@@ -2059,18 +2076,24 @@ body {
 
 .pending-match-name {
   overflow: hidden;
-  width: 108px;
+  width: 100%;
   color: #fff;
-  font-size: 17px;
+  font-size: clamp(22px, 6vw, 30px);
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.pending-match-card small {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 12px;
-  font-weight: 800;
+.message-empty-note {
+  display: grid;
+  flex: 1 0 calc(100% - 24px);
+  min-height: 240px;
+  place-items: center;
+  padding: 30px 10px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: clamp(20px, 5.6vw, 28px);
+  font-weight: 900;
+  text-align: center;
 }
 
 .conversation-item {

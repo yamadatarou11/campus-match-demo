@@ -688,14 +688,13 @@ function renderConversations() {
 
   pendingChatList.innerHTML =
     pendingMatches.length === 0
-      ? `<p class="empty-note">未送信のマッチはいません。</p>`
+      ? `<p class="message-empty-note">マッチした人にメッセージを送ってみよう</p>`
       : pendingMatches
           .map(
             (match) => `
               <button class="pending-match-card ${activeChat === match.originalIndex ? "active" : ""}" data-chat="${match.originalIndex}">
                 ${renderChatAvatar(match, "pending-match-photo")}
                 <span class="pending-match-name">${match.name}</span>
-                <small>未送信</small>
               </button>
             `
           )
@@ -703,11 +702,14 @@ function renderConversations() {
 
   conversationList.innerHTML =
     matches.length === 0
-      ? `<p>マッチ後に相手がここへ表示されます。「探す」でハートを押すとチャットできます。</p>`
+      ? `<p class="message-empty-note">マッチした人にメッセージを送ってみよう</p>`
       : matches
+          .filter((match) => match.messages.some((message) => message.from === "me"))
           .map(
-            (match, index) => `
-              <button class="conversation-item ${activeChat === index ? "active" : ""}" data-chat="${index}">
+            (match) => {
+              const originalIndex = matches.indexOf(match);
+              return `
+              <button class="conversation-item ${activeChat === originalIndex ? "active" : ""}" data-chat="${originalIndex}">
                 ${renderChatAvatar(match, "conversation-avatar")}
                 <span>
                   <strong>${match.name}</strong>
@@ -715,9 +717,10 @@ function renderConversations() {
                   <span>${match.messages.at(-1)?.text || "メッセージを始めましょう"}</span>
                 </span>
               </button>
-            `
+            `;
+            }
           )
-          .join("");
+          .join("") || `<p class="message-empty-note">マッチした人にメッセージを送ってみよう</p>`;
 }
 
 function firstProfilePhoto(person) {
