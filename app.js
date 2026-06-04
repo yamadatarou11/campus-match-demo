@@ -759,11 +759,12 @@ function renderChat(index) {
 function openChat(index) {
   renderChat(index);
   messagesView.classList.add("chat-detail-open");
-  messageInput.focus({ preventScroll: true });
+  appShell.classList.add("chat-detail-mode");
 }
 
 function closeChatDetail() {
   messagesView.classList.remove("chat-detail-open");
+  appShell.classList.remove("chat-detail-mode");
 }
 
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
