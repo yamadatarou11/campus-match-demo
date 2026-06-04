@@ -692,13 +692,10 @@ function renderConversations() {
       : pendingMatches
           .map(
             (match) => `
-              <button class="conversation-item pending-chat-item ${activeChat === match.originalIndex ? "active" : ""}" data-chat="${match.originalIndex}">
-                <span class="conversation-avatar">${match.name.slice(0, 1)}</span>
-                <span>
-                  <strong>${match.name}</strong>
-                  <small>${match.school}・${gradeLabel(match.grade)}</small>
-                  <span>まだ自分から送っていません</span>
-                </span>
+              <button class="pending-match-card ${activeChat === match.originalIndex ? "active" : ""}" data-chat="${match.originalIndex}">
+                ${renderChatAvatar(match, "pending-match-photo")}
+                <span class="pending-match-name">${match.name}</span>
+                <small>未送信</small>
               </button>
             `
           )
@@ -711,7 +708,7 @@ function renderConversations() {
           .map(
             (match, index) => `
               <button class="conversation-item ${activeChat === index ? "active" : ""}" data-chat="${index}">
-                <span class="conversation-avatar">${match.name.slice(0, 1)}</span>
+                ${renderChatAvatar(match, "conversation-avatar")}
                 <span>
                   <strong>${match.name}</strong>
                   <small>${match.school}・${gradeLabel(match.grade)}</small>
@@ -721,6 +718,18 @@ function renderConversations() {
             `
           )
           .join("");
+}
+
+function firstProfilePhoto(person) {
+  if (Array.isArray(person.photos) && person.photos[0]) return person.photos[0];
+  return person.photo || "";
+}
+
+function renderChatAvatar(person, className) {
+  const photo = firstProfilePhoto(person);
+  return photo
+    ? `<span class="${className}"><img src="${photo}" alt="${person.name}のプロフィール写真" /></span>`
+    : `<span class="${className}">${person.name.slice(0, 1)}</span>`;
 }
 
 function renderChat(index) {
