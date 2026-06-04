@@ -286,6 +286,14 @@ let signupStepIndex = 0;
 let signupVerificationCode = "";
 let signupVerifiedEmail = "";
 
+function syncViewportSize() {
+  const viewport = window.visualViewport;
+  const height = viewport?.height || window.innerHeight;
+  const top = viewport?.offsetTop || 0;
+  document.documentElement.style.setProperty("--chat-viewport-height", `${height}px`);
+  document.documentElement.style.setProperty("--chat-viewport-top", `${top}px`);
+}
+
 function loadAccounts() {
   const accounts = JSON.parse(localStorage.getItem("campusAccounts") || "[]");
   const seedAccounts = [demoAccount, ...numberedDemoAccounts];
@@ -757,6 +765,7 @@ function renderChat(index) {
 }
 
 function openChat(index) {
+  syncViewportSize();
   renderChat(index);
   messagesView.classList.add("chat-detail-open");
   appShell.classList.add("chat-detail-mode");
@@ -765,6 +774,7 @@ function openChat(index) {
 function closeChatDetail() {
   messagesView.classList.remove("chat-detail-open");
   appShell.classList.remove("chat-detail-mode");
+  document.documentElement.style.removeProperty("--chat-viewport-top");
 }
 
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
@@ -1189,6 +1199,17 @@ profilePhoto.addEventListener("change", () => {
 
 [profileName, profileAge, profileSchool, profileInterests, profileStatus, profileBio].forEach((input) => {
   input.addEventListener("input", renderProfilePreview);
+});
+
+syncViewportSize();
+window.addEventListener("resize", syncViewportSize);
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", syncViewportSize);
+  window.visualViewport.addEventListener("scroll", syncViewportSize);
+}
+messageInput.addEventListener("focus", () => {
+  syncViewportSize();
+  window.setTimeout(syncViewportSize, 80);
 });
 
 loadAccounts();
