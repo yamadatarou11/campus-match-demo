@@ -1968,7 +1968,7 @@ body {
 }
 
 .section-heading h2 {
-  font-size: 28px;
+  font-size: 22px;
 }
 
 .message-layout {
@@ -1996,6 +1996,15 @@ body {
   min-height: 260px;
   border-radius: 0;
   background: transparent;
+  display: none;
+}
+
+#messages.chat-detail-open .conversation-list-wrap {
+  display: none;
+}
+
+#messages.chat-detail-open .chat-panel {
+  display: grid;
 }
 
 .panel-kicker {
@@ -2004,7 +2013,7 @@ body {
 
 .mini-heading strong {
   color: #fff;
-  font-size: clamp(24px, 7vw, 34px);
+  font-size: clamp(20px, 5.5vw, 22px);
   font-weight: 950;
   letter-spacing: 0;
 }
@@ -2078,7 +2087,7 @@ body {
   overflow: hidden;
   width: 100%;
   color: #fff;
-  font-size: clamp(22px, 6vw, 30px);
+  font-size: clamp(16px, 4.5vw, 18px);
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2091,7 +2100,7 @@ body {
   place-items: center;
   padding: 30px 10px;
   color: rgba(255, 255, 255, 0.42);
-  font-size: clamp(20px, 5.6vw, 28px);
+  font-size: clamp(15px, 4.3vw, 17px);
   font-weight: 900;
   text-align: center;
 }
@@ -2109,15 +2118,40 @@ body {
   border-radius: 50%;
 }
 
+.chat-detail-top {
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  padding-bottom: 12px;
+}
+
+.chat-back-button {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.chat-header {
+  justify-self: center;
+  border-bottom: 0;
+  padding-bottom: 0;
+  color: #fff;
+  font-size: 17px;
+}
+
 .conversation-item strong {
   color: #fff;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .conversation-item small,
 .conversation-item span span {
   color: rgba(255, 255, 255, 0.52);
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .profile-setting-top {

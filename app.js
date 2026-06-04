@@ -272,8 +272,10 @@ const matchGrid = document.querySelector("#matchGrid");
 const receivedLikeGrid = document.querySelector("#receivedLikeGrid");
 const matchCount = document.querySelector("#matchCount");
 const chatCount = document.querySelector("#chatCount");
+const messagesView = document.querySelector("#messages");
 const conversationList = document.querySelector("#conversationList");
 const pendingChatList = document.querySelector("#pendingChatList");
+const chatBackButton = document.querySelector("#chatBackButton");
 const chatHeader = document.querySelector("#chatHeader");
 const chatLog = document.querySelector("#chatLog");
 const messageForm = document.querySelector("#messageForm");
@@ -745,12 +747,14 @@ function renderChat(index) {
   renderConversations();
 }
 
-function openChat(index, shouldScroll = false) {
+function openChat(index) {
   renderChat(index);
-  if (shouldScroll) {
-    chatPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-    messageInput.focus({ preventScroll: true });
-  }
+  messagesView.classList.add("chat-detail-open");
+  messageInput.focus({ preventScroll: true });
+}
+
+function closeChatDetail() {
+  messagesView.classList.remove("chat-detail-open");
 }
 
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
@@ -760,6 +764,7 @@ document.querySelector(".nav-tabs").addEventListener("click", (event) => {
   document.querySelectorAll(".view").forEach((view) => view.classList.remove("active-view"));
   button.classList.add("active");
   document.querySelector(`#${button.dataset.view}`).classList.add("active-view");
+  if (button.dataset.view === "messages") closeChatDetail();
 });
 
 function showLoginForm() {
@@ -1060,13 +1065,15 @@ candidateCard.addEventListener("pointercancel", () => {
 
 conversationList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-chat]");
-  if (button) openChat(Number(button.dataset.chat), true);
+  if (button) openChat(Number(button.dataset.chat));
 });
 
 pendingChatList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-chat]");
-  if (button) openChat(Number(button.dataset.chat), true);
+  if (button) openChat(Number(button.dataset.chat));
 });
+
+chatBackButton.addEventListener("click", closeChatDetail);
 
 openProfilePreviewButton.addEventListener("click", () => {
   renderPublicProfilePreview();

@@ -227,7 +227,10 @@
               <div class="conversation-list" id="conversationList"></div>
             </div>
             <div class="chat-panel">
-              <div id="chatHeader" class="chat-header">相手を選択してください</div>
+              <div class="chat-detail-top">
+                <button id="chatBackButton" class="chat-back-button" type="button">戻る</button>
+                <div id="chatHeader" class="chat-header">相手を選択してください</div>
+              </div>
               <div id="chatLog" class="chat-log"></div>
               <form id="messageForm" class="message-form">
                 <input id="messageInput" type="text" placeholder="メッセージを入力" autocomplete="off" />
@@ -400,6 +403,6 @@
     <div class="swipe-preview swipe-preview-like" aria-hidden="true">♥</div>
     <div class="swipe-preview swipe-preview-bad" aria-hidden="true">×</div>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=20260604-chat-open1"></script>
+    <script src="app.js?v=20260605-chat-detail1"></script>
   </body>
 </html>
