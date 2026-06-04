@@ -745,6 +745,14 @@ function renderChat(index) {
   renderConversations();
 }
 
+function openChat(index, shouldScroll = false) {
+  renderChat(index);
+  if (shouldScroll) {
+    chatPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    messageInput.focus({ preventScroll: true });
+  }
+}
+
 document.querySelector(".nav-tabs").addEventListener("click", (event) => {
   const button = event.target.closest(".nav-tab");
   if (!button) return;
@@ -1052,12 +1060,12 @@ candidateCard.addEventListener("pointercancel", () => {
 
 conversationList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-chat]");
-  if (button) renderChat(Number(button.dataset.chat));
+  if (button) openChat(Number(button.dataset.chat), true);
 });
 
 pendingChatList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-chat]");
-  if (button) renderChat(Number(button.dataset.chat));
+  if (button) openChat(Number(button.dataset.chat), true);
 });
 
 openProfilePreviewButton.addEventListener("click", () => {
