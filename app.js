@@ -740,10 +740,19 @@ function renderChatAvatar(person, className) {
 function renderChat(index) {
   activeChat = index;
   const match = matches[index];
-  chatHeader.textContent = `${match.name}さんとの会話`;
+  chatHeader.textContent = match.name;
   chatLog.innerHTML = match.messages
-    .map((message) => `<div class="bubble ${message.from === "me" ? "mine" : ""}">${message.text}</div>`)
+    .map((message) => {
+      const isMine = message.from === "me";
+      return `
+        <div class="message-row ${isMine ? "mine" : "theirs"}">
+          ${isMine ? "" : renderChatAvatar(match, "message-avatar")}
+          <div class="bubble ${isMine ? "mine" : ""}">${message.text}</div>
+        </div>
+      `;
+    })
     .join("");
+  chatLog.scrollTop = chatLog.scrollHeight;
   renderConversations();
 }
 
