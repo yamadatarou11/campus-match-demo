@@ -260,6 +260,7 @@ const profileInterests = document.querySelector("#profileInterests");
 const profileLookingFor = document.querySelector("#profileLookingFor");
 const profileType = document.querySelector("#profileType");
 const profileStatus = document.querySelector("#profileStatus");
+const profileLogoutButton = document.querySelector("#profileLogoutButton");
 const profilePhoto = document.querySelector("#profilePhoto");
 const profilePhotoPreview = document.querySelector("#profilePhotoPreview");
 const profilePreviewName = document.querySelector("#profilePreviewName");
@@ -329,6 +330,13 @@ function getCurrentUser() {
 
 function setCurrentUser(user) {
   localStorage.setItem("campusCurrentUser", JSON.stringify(user));
+}
+
+function logout() {
+  localStorage.removeItem("campusCurrentUser");
+  closeChatDetail();
+  showAuth();
+  showToast("ログアウトしました");
 }
 
 function syncDatabaseSnapshot() {
@@ -616,9 +624,7 @@ function addMatch(candidate) {
   if (!matches.some((match) => match.name === candidate.name)) {
     matches.push({
       ...candidate,
-      messages: [
-        { from: "them", text: "マッチありがとうございます。よかったら今週どこかで話しませんか？" }
-      ]
+      messages: []
     });
     saveMatches();
     showToast(`${candidate.name}さんとマッチしました`);
@@ -694,7 +700,10 @@ function renderConversations() {
   chatCount.textContent = `${matches.length}人`;
   const pendingMatches = matches
     .map((match, index) => ({ ...match, originalIndex: index }))
-    .filter((match) => !match.messages.some((message) => message.from === "me"));
+    .filter((match) => chatMessages(match).length === 0);
+  const messagedMatches = matches
+    .map((match, index) => ({ ...match, originalIndex: index }))
+    .filter((match) => chatMessages(match).length > 0);
 
   pendingChatList.innerHTML =
     pendingMatches.length === 0
@@ -713,18 +722,16 @@ function renderConversations() {
   conversationList.innerHTML =
     matches.length === 0
       ? `<p class="message-empty-note">マッチした人にメッセージを送ってみよう</p>`
-      : matches
-          .filter((match) => match.messages.some((message) => message.from === "me"))
+      : messagedMatches
           .map(
             (match) => {
-              const originalIndex = matches.indexOf(match);
               return `
-              <button class="conversation-item ${activeChat === originalIndex ? "active" : ""}" data-chat="${originalIndex}">
+              <button class="conversation-item ${activeChat === match.originalIndex ? "active" : ""}" data-chat="${match.originalIndex}">
                 ${renderChatAvatar(match, "conversation-avatar")}
                 <span>
                   <strong>${match.name}</strong>
                   <small>${match.school}・${gradeLabel(match.grade)}</small>
-                  <span>${match.messages.at(-1)?.text || "メッセージを始めましょう"}</span>
+                  <span>${chatMessages(match).at(-1)?.text || "メッセージを始めましょう"}</span>
                 </span>
               </button>
             `;
@@ -745,11 +752,15 @@ function renderChatAvatar(person, className) {
     : `<span class="${className}">${person.name.slice(0, 1)}</span>`;
 }
 
+function chatMessages(match) {
+  return Array.isArray(match.messages) ? match.messages : [];
+}
+
 function renderChat(index) {
   activeChat = index;
   const match = matches[index];
   chatHeader.textContent = match.name;
-  chatLog.innerHTML = match.messages
+  chatLog.innerHTML = chatMessages(match)
     .map((message) => {
       const isMine = message.from === "me";
       return `
@@ -954,11 +965,8 @@ signupSkipProfile.addEventListener("click", () => {
   createAccount(buildSignupAccount(true));
 });
 
-logoutButton.addEventListener("click", () => {
-  localStorage.removeItem("campusCurrentUser");
-  showAuth();
-  showToast("ログアウトしました");
-});
+logoutButton.addEventListener("click", logout);
+profileLogoutButton.addEventListener("click", logout);
 
 candidateCard.addEventListener("click", (event) => {
   const action = event.target.dataset.action;
@@ -1128,6 +1136,7 @@ messageForm.addEventListener("submit", (event) => {
   }
   const text = messageInput.value.trim();
   if (!text) return;
+  if (!Array.isArray(matches[activeChat].messages)) matches[activeChat].messages = [];
   matches[activeChat].messages.push({ from: "me", text });
   messageInput.value = "";
   saveMatches();
@@ -1213,8 +1222,12 @@ messageInput.addEventListener("focus", () => {
 });
 
 loadAccounts();
-localStorage.removeItem("campusCurrentUser");
-showAuth();
+const savedUser = getCurrentUser();
+if (savedUser) {
+  showApp(savedUser);
+} else {
+  showAuth();
+}
 renderCandidate();
 renderModeration();
 renderLikes();
