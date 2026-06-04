@@ -175,6 +175,10 @@ class CampusHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
+        if path in ("", "/", "/index.html"):
+            self.path = "/index.html"
+            super().do_GET()
+            return
         if path == "/api/health":
             init_db()
             json_response(self, 200, {"ok": True, "database": str(DB_PATH.name)})
