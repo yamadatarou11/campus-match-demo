@@ -1,0 +1,49 @@
+Campus Match データベースガイド
+==============================
+
+概要
+----
+server.py は、スマホから開けるローカルWebサーバーとSQLiteデータベースを同時に起動します。
+外部ライブラリは不要で、Python標準ライブラリだけで動作します。
+
+起動方法
+--------
+PowerShellでこのフォルダを開き、次を実行します。
+
+python server.py 4174
+
+データベース
+------------
+作成場所:
+data/campus_match.db
+
+主なテーブル:
+- accounts: デモアカウントとプロフィール情報
+- likes: いいね保存用
+- matches: マッチ保存用
+- app_snapshots: ブラウザ側localStorageの同期スナップショット
+
+API
+---
+GET /api/health
+サーバーとDBの状態確認。
+
+GET /api/demo-accounts
+デモアカウント一覧確認。
+
+POST /api/login
+メールとパスワードでDBログイン確認。
+
+POST /api/snapshot
+アプリのlocalStorage状態をSQLiteへ同期。
+
+スマホで開く
+------------
+PCとスマホを同じWi-Fiに接続し、PCのIPv4アドレスを確認します。
+例:
+http://192.168.11.6:4174/index.html
+
+注意
+----
+これはデモ用の簡易DBです。
+本番化する場合はHTTPS、正式な認証、パスワードハッシュ化、入力検証、バックアップ、監査ログが必要です。

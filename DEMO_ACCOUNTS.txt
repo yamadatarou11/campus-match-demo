@@ -1,0 +1,45 @@
+Verified campus deck - デモアカウント一覧
+========================================
+
+使い方
+------
+ログイン画面で、下記のメールアドレスとパスワードを入力してください。
+この30件は app.js で自動作成され、ブラウザの localStorage に保存されます。
+
+デモアカウント
+--------------
+01. demo1@campus.ac.jp / demo1
+02. demo2@campus.ac.jp / demo2
+03. demo3@campus.ac.jp / demo3
+04. demo4@campus.ac.jp / demo4
+05. demo5@campus.ac.jp / demo5
+06. demo6@campus.ac.jp / demo6
+07. demo7@campus.ac.jp / demo7
+08. demo8@campus.ac.jp / demo8
+09. demo9@campus.ac.jp / demo9
+10. demo10@campus.ac.jp / demo10
+11. demo11@campus.ac.jp / demo11
+12. demo12@campus.ac.jp / demo12
+13. demo13@campus.ac.jp / demo13
+14. demo14@campus.ac.jp / demo14
+15. demo15@campus.ac.jp / demo15
+16. demo16@campus.ac.jp / demo16
+17. demo17@campus.ac.jp / demo17
+18. demo18@campus.ac.jp / demo18
+19. demo19@campus.ac.jp / demo19
+20. demo20@campus.ac.jp / demo20
+21. demo21@campus.ac.jp / demo21
+22. demo22@campus.ac.jp / demo22
+23. demo23@campus.ac.jp / demo23
+24. demo24@campus.ac.jp / demo24
+25. demo25@campus.ac.jp / demo25
+26. demo26@campus.ac.jp / demo26
+27. demo27@campus.ac.jp / demo27
+28. demo28@campus.ac.jp / demo28
+29. demo29@campus.ac.jp / demo29
+30. demo30@campus.ac.jp / demo30
+
+補足
+----
+既存の単体デモアカウント demo@campus.ac.jp / demo1234 も引き続き使えます。
+本番ではパスワードを平文保存せず、サーバー側でハッシュ化してください。

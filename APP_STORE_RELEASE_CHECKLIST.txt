@@ -1,0 +1,75 @@
+Campus Match App Store提出チェックリスト
+=======================================
+
+現在の状態
+----------
+このフォルダのアプリは、iPhone Safari / ホーム画面追加でデモできるWeb/PWA版です。
+App Storeへ提出するには、iOSアプリコンテナ、バックエンド、Apple Developer Program、App Store Connect設定が必要です。
+ios フォルダにSwiftUI/WKWebViewベースのiOS実装ひな形を追加しています。
+
+必須タスク
+----------
+1. Apple Developer Programに登録する。
+2. Bundle IDを作成する。
+3. XcodeまたはExpo/React Native/CapacitorでiOSビルドを作る。
+4. Sign in with Appleを有効化する。
+5. 大学メール認証を本物のメール送信/確認フローに置き換える。
+6. localStorage保存をサーバーDBへ移行する。
+7. パスワードを平文保存せず、認証基盤で安全に管理する。
+8. 画像保存をクラウドストレージへ移行する。
+9. 通報・ブロック・アカウント削除をサーバー側でも実装する。
+10. プライバシーポリシーURLを公開する。
+11. 利用規約URLを公開する。
+12. App Store ConnectのApp Privacyに収集データを申告する。
+13. 年齢制限と年齢確認方針を決める。
+14. TestFlightで動作確認する。
+15. スクリーンショット、説明文、サポートURL、マーケティングURLを用意する。
+
+推奨する技術構成
+----------------
+フロント:
+Expo / React Native
+
+バックエンド:
+Supabase または Firebase
+
+認証:
+Sign in with Apple + 大学メール認証
+
+データ:
+Users, Profiles, Likes, Matches, Messages, Reports, Blocks, AuditLogs
+
+ストレージ:
+プロフィール写真用クラウドストレージ
+
+通知:
+マッチ・メッセージ用プッシュ通知
+
+App Store Connectで申告が必要な可能性が高いデータ
+------------------------------------------------
+- Contact Info: メールアドレス
+- User Content: 写真、プロフィール、メッセージ
+- Identifiers: ユーザーID
+- Diagnostics: クラッシュログ
+- Usage Data: アプリ操作ログを取る場合
+- Sensitive Info: 性別、マッチング目的などの扱いに注意
+
+審査向け安全要件
+----------------
+- 通報機能
+- ブロック機能
+- アカウント削除
+- 不適切コンテンツのレビュー体制
+- 利用規約とプライバシーポリシー
+- 年齢制限
+- 実在するサポート連絡先
+
+提出前に残る外部依存
+--------------------
+- Apple Developerアカウント
+- Mac + Xcode
+- 公開WebサイトまたはLP
+- プライバシーポリシーURL
+- サポートURL
+- 本番バックエンド
+- 審査用デモアカウント

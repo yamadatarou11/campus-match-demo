@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#07090f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Campus Match" />
+    <title>Campus Match</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="app-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="auth-screen" id="authScreen" aria-label="ログイン">
+      <div class="auth-card">
+        <form class="auth-form active-auth-form" id="loginForm">
+          <h2>ログイン</h2>
+          <label>
+            メール
+            <input id="loginEmail" type="email" value="demo@campus.ac.jp" autocomplete="email" required />
+          </label>
+          <label>
+            パスワード
+            <input id="loginPassword" type="password" value="demo1234" autocomplete="current-password" required />
+          </label>
+          <button type="submit">ログインする</button>
+          <button class="ghost-button" id="startSignupButton" type="button">新規登録はこちら</button>
+        </form>
+
+        <form class="auth-form" id="signupForm">
+          <div class="signup-progress" id="signupProgress">1 / 7</div>
+
+          <section class="signup-step active-signup-step" data-signup-step="0">
+            <h2>大学メール認証</h2>
+            <p class="step-copy">大学メールとパスワードを入力して、認証コードを受け取ります。</p>
+            <label>
+              大学メール
+              <input id="signupEmail" type="email" placeholder="name@university.ac.jp" autocomplete="email" required />
+            </label>
+            <label>
+              パスワード
+              <input id="signupPassword" type="password" minlength="6" autocomplete="new-password" required />
+            </label>
+            <button id="sendVerificationButton" type="button">認証コードを送る</button>
+          </section>
+
+          <section class="signup-step" data-signup-step="1">
+            <h2>メール認証</h2>
+            <p class="step-copy" id="verificationHelp">届いた6桁コードを入力してください。</p>
+            <label>
+              認証コード
+              <input id="signupCode" type="text" inputmode="numeric" maxlength="6" placeholder="123456" />
+            </label>
+            <button id="verifyCodeButton" type="button">認証する</button>
+          </section>
+
+          <section class="signup-step" data-signup-step="2">
+            <h2>ニックネーム</h2>
+            <label>
+              ニックネーム
+              <input id="signupName" type="text" placeholder="例: Haruka" autocomplete="name" />
+            </label>
+            <button class="signup-next" type="button">次へ</button>
+          </section>
+
+          <section class="signup-step" data-signup-step="3">
+            <h2>性別</h2>
+            <label>
+              性別
+              <select id="signupGender">
+                <option value="">選択してください</option>
+                <option value="male">男性</option>
+                <option value="female">女性</option>
+                <option value="other">その他</option>
+              </select>
+            </label>
+            <button class="signup-next" type="button">次へ</button>
+          </section>
+
+          <section class="signup-step" data-signup-step="4">
+            <h2>学年・年齢</h2>
+            <label>
+              学年
+              <select id="signupGrade">
+                <option value="">選択してください</option>
+                <option value="1">1年</option>
+                <option value="2">2年</option>
+                <option value="3">3年</option>
+                <option value="4">4年</option>
+                <option value="5">5年</option>
+                <option value="6">6年</option>
+                <option value="m1">修士1年</option>
+                <option value="m2">修士2年</option>
+                <option value="d1">博士1年</option>
+                <option value="d2">博士2年</option>
+                <option value="d3">博士3年</option>
+                <option value="other">その他</option>
+              </select>
+            </label>
+            <label>
+              年齢
+              <input id="signupAge" type="number" min="18" max="80" placeholder="例: 20" />
+            </label>
+            <button class="signup-next" type="button">次へ</button>
+          </section>
+
+          <section class="signup-step" data-signup-step="5">
+            <h2>ここからは任意</h2>
+            <p class="step-copy">あとでプロフィールから編集できます。</p>
+            <label>
+              大学名
+              <input id="signupSchool" type="text" placeholder="例: 明青大学" />
+            </label>
+            <label>
+              学部・専攻
+              <input id="signupFaculty" type="text" placeholder="例: 経営学部 マーケティング専攻" />
+            </label>
+            <button class="signup-next" type="button">次へ</button>
+            <button class="ghost-button signup-skip-step" type="button">スキップ</button>
+          </section>
+
+          <section class="signup-step" data-signup-step="6">
+            <h2>趣味など</h2>
+            <label>
+              趣味
+              <input id="signupInterests" type="text" placeholder="例: 映画, カフェ巡り, 音楽" />
+            </label>
+            <label>
+              探している相手
+              <select id="signupLookingFor">
+                <option value="">未選択</option>
+                <option value="友達づくり">友達づくり</option>
+                <option value="恋人探し">恋人探し</option>
+                <option value="勉強仲間">勉強仲間</option>
+                <option value="イベント仲間">イベント仲間</option>
+              </select>
+            </label>
+            <label>
+              タイプ
+              <input id="signupType" type="text" placeholder="例: よく笑う人、落ち着いて話せる人" />
+            </label>
+            <button id="completeSignupButton" type="button">登録して始める</button>
+            <button class="ghost-button" id="signupSkipProfile" type="button">任意項目をスキップして始める</button>
+          </section>
+
+          <button class="ghost-button" id="backToLoginButton" type="button">ログインへ戻る</button>
+          <p class="legal-note">登録すると利用規約とプライバシーポリシーに同意したものとみなします。</p>
+        </form>
+      </div>
+    </section>
+
+    <div class="app-shell app-locked" id="appShell">
+      <aside class="sidebar" aria-label="メインナビゲーション">
+        <div class="brand">
+          <span class="brand-mark">CM</span>
+          <div>
+            <strong>Campus Match</strong>
+            <span>Student dating & friends</span>
+          </div>
+        </div>
+        <nav class="nav-tabs" aria-label="画面切り替え">
+          <button class="nav-tab active" data-view="discover">探す</button>
+          <button class="nav-tab" data-view="matches">いいね</button>
+          <button class="nav-tab" data-view="messages">チャット</button>
+          <button class="nav-tab" data-view="profile">プロフィール</button>
+        </nav>
+        <div class="status-box">
+          <span class="status-dot"></span>
+          <span id="currentUserLabel">大学メール認証済み</span>
+        </div>
+        <button class="logout-button" id="logoutButton" type="button">ログアウト</button>
+      </aside>
+
+      <main class="main">
+        <section id="discover" class="view active-view">
+          <div class="discover-grid">
+            <div class="deck-stage">
+              <div class="deck-shadow deck-shadow-one"></div>
+              <div class="deck-shadow deck-shadow-two"></div>
+              <article class="profile-card" id="candidateCard" aria-live="polite"></article>
+            </div>
+          </div>
+        </section>
+
+        <section id="matches" class="view">
+          <div class="section-heading">
+            <h2>いいね</h2>
+            <span id="matchCount">0件</span>
+          </div>
+          <div class="likes-block">
+            <div class="mini-heading">
+              <strong>あなたがいいね</strong>
+              <span>探すで右スワイプした相手</span>
+            </div>
+          </div>
+          <div class="match-grid" id="matchGrid"></div>
+          <div class="likes-block inbound-likes-block">
+            <div class="mini-heading">
+              <strong>あなたにいいね</strong>
+              <span>相手から届いたいいね</span>
+            </div>
+            <div class="match-grid" id="receivedLikeGrid"></div>
+          </div>
+        </section>
+
+        <section id="messages" class="view">
+          <div class="section-heading">
+            <h2>チャット</h2>
+            <span id="chatCount">0人</span>
+          </div>
+          <div class="message-promo-banner">
+            <strong>Campus Plus</strong>
+            <span>条件達成で無料GET</span>
+          </div>
+          <div class="message-layout">
+            <div class="conversation-list-wrap">
+              <div class="panel-kicker">Matched people</div>
+              <div class="pending-chat-block">
+                <div class="mini-heading chat-mini-heading">
+                  <strong>未送信のマッチ</strong>
+                  <span>まだチャットしていない人</span>
+                </div>
+                <div class="pending-chat-list" id="pendingChatList"></div>
+              </div>
+              <div class="mini-heading chat-mini-heading">
+                <strong>会話中</strong>
+                <span>マッチした人だけ</span>
+              </div>
+              <div class="conversation-list" id="conversationList"></div>
+            </div>
+            <div class="chat-panel">
+              <div id="chatHeader" class="chat-header">相手を選択してください</div>
+              <div id="chatLog" class="chat-log"></div>
+              <form id="messageForm" class="message-form">
+                <input id="messageInput" type="text" placeholder="メッセージを入力" autocomplete="off" />
+                <button type="submit">送信</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section id="profile" class="view">
+          <form class="profile-editor" id="profileForm">
+            <div class="profile-setting-top">
+              <button class="profile-back-button" type="button">戻る</button>
+              <strong>プロフィール設定</strong>
+              <span>保存</span>
+            </div>
+            <div class="profile-mode-tabs" aria-label="プロフィール編集モード">
+              <button class="active" type="button">編集</button>
+              <button id="openProfilePreviewTabButton" type="button">プレビュー</button>
+            </div>
+            <div class="section-heading">
+              <h2>自分のプロフィール</h2>
+              <div class="profile-heading-actions">
+                <button class="ghost-button" id="openProfilePreviewButton" type="button">プレビュー</button>
+                <button type="submit">保存</button>
+              </div>
+            </div>
+            <div class="profile-composer">
+              <div class="profile-preview-card">
+                <div class="profile-photo-preview" id="profilePhotoPreview">CM</div>
+                <div class="profile-preview-body">
+                  <strong id="profilePreviewName">Haruka</strong>
+                  <span id="profilePreviewMeta">20歳 / 明青大学 経営学部</span>
+                  <p id="profilePreviewStatus">毎日充実していますが、恋愛の方も頑張りたいなと思っています。</p>
+                  <div id="profilePreviewTags" class="profile-preview-tags"></div>
+                </div>
+              </div>
+              <div class="photo-editor">
+                <input class="visually-hidden" name="photo" id="profilePhoto" type="file" accept="image/*" multiple />
+              </div>
+            </div>
+            <label>
+              ニックネーム
+              <input name="name" id="profileName" value="Haruka" />
+            </label>
+            <label>
+              年齢
+              <input name="age" id="profileAge" type="number" min="18" max="80" placeholder="例: 20" />
+            </label>
+            <label>
+              大学・学部
+              <input name="school" id="profileSchool" value="明青大学 経営学部" />
+            </label>
+            <label>
+              性別
+              <select name="gender" id="profileGender">
+                <option value="male">男性</option>
+                <option value="female">女性</option>
+                <option value="other">その他</option>
+              </select>
+            </label>
+            <label>
+              学部・専攻
+              <input name="faculty" id="profileFaculty" placeholder="例: 経営学部 マーケティング専攻" />
+            </label>
+            <label>
+              趣味
+              <input name="interests" id="profileInterests" placeholder="例: 映画, カフェ巡り, 音楽" />
+            </label>
+            <label>
+              探している相手
+              <select name="lookingFor" id="profileLookingFor">
+                <option value="">未選択</option>
+                <option value="友達づくり">友達づくり</option>
+                <option value="恋人探し">恋人探し</option>
+                <option value="勉強仲間">勉強仲間</option>
+                <option value="イベント仲間">イベント仲間</option>
+              </select>
+            </label>
+            <label>
+              タイプ
+              <input name="type" id="profileType" placeholder="例: よく笑う人、落ち着いて話せる人" />
+            </label>
+            <label>
+              ひとこと
+              <input name="status" id="profileStatus" placeholder="例: 毎日充実していますが、恋愛の方も頑張りたいです" />
+            </label>
+            <label>
+              自己紹介
+              <textarea name="bio" rows="4">授業後に気軽に話せる友達や、一緒にイベントに行ける人と出会いたいです。</textarea>
+            </label>
+            <div class="account-actions">
+              <button class="ghost-button" id="privacyButton" type="button">プライバシーポリシー</button>
+              <button class="ghost-button" id="termsButton" type="button">利用規約</button>
+              <button class="danger-button" id="deleteAccountButton" type="button">アカウント削除</button>
+            </div>
+            <fieldset>
+              <legend>利用目的</legend>
+              <label><input type="checkbox" checked /> 友達づくり</label>
+              <label><input type="checkbox" checked /> 恋人探し</label>
+              <label><input type="checkbox" /> 勉強仲間</label>
+            </fieldset>
+          </form>
+        </section>
+
+        <section id="safety" class="view">
+          <div class="safety-grid">
+            <article class="panel">
+              <h2>安全設計</h2>
+              <ul>
+                <li>大学メール認証を前提にした学生限定コミュニティ</li>
+                <li>通報・ブロック・非表示を各プロフィールから実行</li>
+                <li>初回メッセージはマッチ成立後のみ送信可能</li>
+                <li>個人情報の投稿を検知したら注意表示</li>
+              </ul>
+            </article>
+            <article class="panel">
+              <h2>運用チェック</h2>
+              <div id="moderationList" class="check-list"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="report-dialog" id="reportDialog">
+      <form method="dialog" class="report-card">
+        <h2>安全レポート</h2>
+        <p id="reportTarget">対象ユーザーを確認しています。</p>
+        <label>
+          理由
+          <select id="reportReason">
+            <option value="不適切なプロフィール">不適切なプロフィール</option>
+            <option value="迷惑メッセージ">迷惑メッセージ</option>
+            <option value="なりすまし">なりすまし</option>
+            <option value="危険行為">危険行為</option>
+          </select>
+        </label>
+        <label>
+          詳細
+          <textarea id="reportNote" rows="3" placeholder="運営に伝えたい内容"></textarea>
+        </label>
+        <div class="report-actions">
+          <button value="cancel" type="submit">閉じる</button>
+          <button id="blockUserButton" value="block" type="button">ブロック</button>
+          <button id="submitReportButton" value="report" type="button">通報する</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="profile-preview-dialog" id="profilePreviewDialog">
+      <form method="dialog" class="profile-preview-sheet">
+        <button class="dialog-close-button" value="cancel" type="submit" aria-label="閉じる">×</button>
+        <div class="public-profile-card">
+          <div class="profile-photo-preview public-photo-preview" id="publicPhotoPreview"></div>
+          <div class="public-profile-body">
+            <strong id="publicProfileName">Haruka</strong>
+            <span id="publicProfileMeta">20歳 / 明青大学 経営学部</span>
+            <p id="publicProfileStatus">毎日充実していますが、恋愛の方も頑張りたいなと思っています。</p>
+            <div id="publicProfileTags" class="profile-preview-tags"></div>
+            <section>
+              <h3>自己紹介文</h3>
+              <p id="publicProfileBio"></p>
+            </section>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="swipe-preview swipe-preview-like" aria-hidden="true">♥</div>
+    <div class="swipe-preview swipe-preview-bad" aria-hidden="true">×</div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js?v=20260604-db-sync1"></script>
+  </body>
+</html>

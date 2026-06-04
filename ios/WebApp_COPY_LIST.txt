@@ -1,0 +1,15 @@
+XcodeプロジェクトへコピーするWebAppファイル
+==========================================
+
+次のファイルをXcodeプロジェクト内の WebApp フォルダへコピーしてください。
+
+- index.html
+- styles.css
+- app.js
+- manifest.webmanifest
+- app-icon.png
+- app-icon.svg
+- PRIVACY_POLICY.txt
+- TERMS_OF_SERVICE.txt
+
+Xcodeでは「Create folder references」を選ぶと、WKWebViewが相対パスで読み込みやすくなります。

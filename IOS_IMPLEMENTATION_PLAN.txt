@@ -1,0 +1,90 @@
+Campus Match iOS実装計画
+=======================
+
+結論
+----
+App Store公開を目指す場合、現在の静的Webデモを「Expo / React Native + Supabase」へ移行する構成を推奨します。
+WebViewだけのアプリ化は最短ですが、審査・保守・ネイティブ体験の面で弱くなります。
+
+Phase 1: TestFlight MVP
+-----------------------
+- React Nativeでログイン、探す、いいね、チャット、プロフィールを実装
+- Sign in with Appleを追加
+- 大学メール認証を追加
+- Supabase Auth / Database / Storageを使用
+- 通報、ブロック、アカウント削除を実装
+- TestFlightで限定配布
+
+Phase 2: App Store提出版
+------------------------
+- プライバシーポリシーURLと利用規約URLを公開
+- App Store用スクリーンショットを作成
+- App Privacyを入力
+- 年齢制限を設定
+- 審査用アカウントを用意
+- App Review Notesに大学メール認証のテスト方法を記載
+
+Phase 3: 本番運用版
+------------------
+- 運営管理画面
+- 通報レビューキュー
+- メッセージの安全検知
+- プッシュ通知
+- 監査ログ
+- データ削除リクエスト対応
+
+主要画面
+--------
+- LoginScreen
+- SignupScreen
+- DiscoverScreen
+- LikesScreen
+- ChatListScreen
+- ChatRoomScreen
+- ProfileScreen
+- SafetyReportModal
+- AccountSettingsScreen
+
+DB設計案
+--------
+users:
+id, email, apple_user_id, university_verified_at, created_at, deleted_at
+
+profiles:
+user_id, name, gender, university, faculty, grade, bio, looking_for, type_text, photo_url
+
+likes:
+id, from_user_id, to_user_id, created_at
+
+matches:
+id, user_a_id, user_b_id, created_at
+
+messages:
+id, match_id, sender_id, body, created_at, moderation_status
+
+reports:
+id, reporter_id, target_user_id, reason, note, status, created_at, resolved_at
+
+blocks:
+id, blocker_id, blocked_user_id, created_at
+
+App Review Notesに書く内容
+--------------------------
+- 審査用アカウント
+- 大学メール認証をスキップ/検証する方法
+- 通報・ブロック・削除の場所
+- プライバシーポリシーURL
+- サポートURL
+
+このデモで実装済みの提出準備
+----------------------------
+- iPhoneデモ表示
+- PWA manifest
+- ホーム画面アイコン
+- ログイン/登録UI
+- Sign in with Apple導線
+- 通報/ブロックUI
+- アカウント削除UI
+- プライバシーポリシー原稿
+- 利用規約原稿
+- App Store提出チェックリスト
