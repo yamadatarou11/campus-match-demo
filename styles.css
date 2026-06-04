@@ -2508,3 +2508,488 @@ body {
     grid-template-columns: 110px 1fr;
   }
 }
+
+/* Production polish layer */
+:root {
+  --app-bg: #050505;
+  --app-panel: #121214;
+  --app-panel-2: #1b1b1e;
+  --app-line: rgba(255, 255, 255, 0.1);
+  --app-text: #f8f8f8;
+  --app-muted: rgba(255, 255, 255, 0.58);
+  --app-soft: rgba(255, 255, 255, 0.08);
+  --app-like: #ff3b5f;
+  --app-chat: #06c755;
+}
+
+html {
+  background: var(--app-bg);
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: Inter, "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.auth-screen {
+  min-height: 100dvh;
+  padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+  background: var(--app-bg);
+}
+
+.auth-card {
+  width: min(100%, 390px);
+  border: 1px solid var(--app-line);
+  border-radius: 24px;
+  padding: 22px;
+  background: var(--app-panel);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+}
+
+.auth-form {
+  gap: 15px;
+}
+
+.auth-form h2 {
+  margin-bottom: 4px;
+  color: var(--app-text);
+  font-size: 26px;
+}
+
+.auth-copy h1,
+h1 {
+  font-size: 30px;
+}
+
+.auth-form label,
+.profile-editor label {
+  color: var(--app-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.auth-form input,
+.auth-form select,
+.profile-editor input,
+.profile-editor select,
+.profile-editor textarea,
+.message-form input {
+  outline: none;
+}
+
+.auth-form input,
+.auth-form select {
+  min-height: 50px;
+  border: 1px solid var(--app-line);
+  border-radius: 14px;
+  background: #0b0b0c;
+  color: var(--app-text);
+  font-size: 16px;
+}
+
+.auth-form button,
+.section-heading button,
+.ghost-button,
+.danger-button {
+  min-height: 46px;
+  border-radius: 14px;
+}
+
+.auth-form button[type="submit"],
+#completeSignupButton,
+#sendVerificationButton,
+#verifyCodeButton {
+  background: var(--app-text);
+  color: #050505;
+}
+
+.auth-form .ghost-button,
+.ghost-button {
+  border: 1px solid var(--app-line);
+  background: var(--app-soft);
+  color: var(--app-text);
+}
+
+.app-shell {
+  background: var(--app-bg);
+}
+
+.main {
+  width: min(100%, 450px);
+  padding: calc(10px + env(safe-area-inset-top)) 14px calc(96px + env(safe-area-inset-bottom));
+}
+
+.view.active-view {
+  animation: viewFade 160ms ease-out;
+}
+
+@keyframes viewFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar {
+  padding: 8px 14px calc(10px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0), rgba(5, 5, 5, 0.95) 24%, #050505);
+}
+
+.nav-tabs {
+  gap: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  padding: 5px;
+  background: rgba(18, 18, 20, 0.96);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.46);
+}
+
+.nav-tab {
+  min-height: 56px;
+  border-radius: 18px;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 10px;
+}
+
+.nav-tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.nav-tab::before {
+  opacity: 0.95;
+}
+
+.section-heading {
+  margin: 0 0 14px;
+}
+
+.section-heading h2,
+.mini-heading strong {
+  color: var(--app-text);
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.section-heading span,
+.mini-heading span {
+  color: var(--app-muted);
+}
+
+.profile-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: calc(100dvh - 214px);
+  border-radius: 28px;
+  background: var(--app-bg);
+}
+
+.candidate-hero {
+  min-height: min(62vh, 600px);
+  border-radius: 28px;
+  padding: 16px;
+  box-shadow: inset 0 -180px 130px rgba(0, 0, 0, 0.72);
+}
+
+.candidate-photo-mark {
+  top: 28px;
+  left: 22px;
+  width: 118px;
+  height: 160px;
+  border: 2px solid rgba(0, 0, 0, 0.78);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 38px;
+}
+
+.candidate-identity h2 {
+  margin-bottom: 8px;
+  font-size: 30px;
+}
+
+.candidate-meta {
+  gap: 7px;
+}
+
+.candidate-meta span {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 12px;
+}
+
+.candidate-body {
+  padding: 12px 2px 0;
+}
+
+.bio-text {
+  margin: 6px 2px 12px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.55;
+}
+
+.tag-row {
+  gap: 7px;
+  margin: 8px 2px 16px;
+}
+
+.tag {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+}
+
+.actions {
+  grid-template-columns: 76px 76px;
+  gap: min(15vw, 56px);
+  margin: 8px 0 0;
+}
+
+.actions button {
+  width: 76px;
+  height: 76px;
+  background: #252529;
+}
+
+.actions button:first-child::before {
+  color: #ff453a;
+  font-size: 54px;
+}
+
+.actions button:last-child::before {
+  color: var(--app-chat);
+  font-size: 48px;
+}
+
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.match-card {
+  min-height: auto;
+  border: 1px solid var(--app-line);
+  border-radius: 18px;
+  padding: 14px;
+  background: var(--app-panel);
+}
+
+.match-card strong {
+  color: var(--app-text);
+  font-size: 18px;
+}
+
+.match-card p {
+  color: var(--app-muted);
+  font-size: 13px;
+}
+
+.liked-badge {
+  border: 0;
+  background: rgba(255, 59, 95, 0.16);
+  color: #ffb8c5;
+}
+
+.received-badge {
+  background: rgba(6, 199, 85, 0.15);
+  color: #a9f7c6;
+}
+
+.conversation-list-wrap {
+  padding: 0;
+}
+
+.pending-chat-block {
+  margin-bottom: 22px;
+}
+
+.pending-chat-list {
+  gap: 12px;
+  margin: 0 -14px 24px 0;
+  padding-right: 14px;
+}
+
+.pending-match-card {
+  flex-basis: clamp(118px, 34vw, 150px);
+}
+
+.pending-match-photo {
+  border-radius: 16px;
+  background: var(--app-panel-2);
+}
+
+.pending-match-name {
+  font-size: 15px;
+}
+
+.message-empty-note {
+  font-size: 15px;
+}
+
+.conversation-list {
+  gap: 4px;
+}
+
+.conversation-item {
+  min-height: 64px;
+  border-radius: 16px;
+  padding: 8px;
+}
+
+.conversation-item.active,
+.conversation-item:active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.conversation-avatar {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  min-height: 48px;
+  max-height: 48px;
+}
+
+.conversation-item strong {
+  font-size: 16px;
+}
+
+.conversation-item small,
+.conversation-item span span {
+  font-size: 13px;
+}
+
+.chat-panel {
+  background: #0b0b0c;
+}
+
+.chat-detail-top,
+.chat-log,
+.message-form {
+  background: #0b0b0c;
+}
+
+.message-form {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 0 0;
+}
+
+.message-form input {
+  min-height: 44px;
+  background: #202124;
+}
+
+.message-form button {
+  min-height: 44px;
+  border-radius: 999px;
+  background: var(--app-chat);
+}
+
+.profile-editor {
+  gap: 14px;
+  max-width: none;
+}
+
+.profile-setting-top {
+  grid-template-columns: 56px 1fr 56px;
+  margin-bottom: 18px;
+}
+
+.profile-setting-top strong {
+  font-size: 21px;
+}
+
+.profile-back-button {
+  font-size: 14px;
+}
+
+.profile-mode-tabs {
+  margin-bottom: 22px;
+  border-radius: 18px;
+  background: var(--app-panel);
+}
+
+.profile-mode-tabs button {
+  min-height: 46px;
+  font-size: 16px;
+}
+
+.profile-mode-tabs button.active {
+  border-right: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.profile-photo-preview {
+  grid-template-rows: repeat(2, minmax(116px, 1fr));
+  gap: 10px;
+}
+
+.photo-slot {
+  border: 1.5px solid rgba(255, 255, 255, 0.72);
+  border-radius: 16px;
+  background: var(--app-panel);
+}
+
+.profile-editor label {
+  grid-template-columns: 104px minmax(0, 1fr);
+  min-height: 58px;
+  border-top-color: var(--app-line);
+  font-size: 13px;
+}
+
+.profile-editor input,
+.profile-editor select,
+.profile-editor textarea {
+  font-size: 16px;
+}
+
+.account-actions {
+  gap: 8px;
+}
+
+.account-actions .ghost-button,
+.account-actions .danger-button {
+  min-height: 44px;
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.toast {
+  border: 1px solid var(--app-line);
+  background: rgba(24, 24, 27, 0.94);
+  color: var(--app-text);
+}
+
+@media (max-width: 560px) {
+  .main {
+    width: 100%;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .profile-card {
+    min-height: calc(100dvh - 200px);
+  }
+
+  .candidate-hero {
+    min-height: min(58vh, 560px);
+  }
+
+  .candidate-identity h2 {
+    font-size: 28px;
+  }
+
+  .profile-editor label {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+}
